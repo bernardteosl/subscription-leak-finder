@@ -1,6 +1,38 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+const APP_DESCRIPTION =
+  "Subscription Leak Finder is a simple financial tool designed to identify hidden, forgotten, or under-utilized recurring charges that quietly drain a user's bank account. The application helps users visualize where small monthly costs compound into significant long-term financial drains.";
+
 export default function Logo({ className = "" }: { className?: string }) {
+  const [hovering, setHovering] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const visible = hovering || clicked;
+
+  useEffect(() => {
+    if (!clicked) return;
+
+    function onPointerDown(e: PointerEvent) {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
+        setClicked(false);
+      }
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setClicked(false);
+    }
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [clicked]);
+
   return (
-    <div className={`flex items-center gap-2.5 ${className}`}>
+    <div ref={rootRef} className={`relative flex items-center gap-2.5 ${className}`}>
       <svg width="51" height="51" viewBox="0 0 100 100" aria-hidden="true">
         <defs>
           <linearGradient id="leakFinderDripGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -26,9 +58,28 @@ export default function Logo({ className = "" }: { className?: string }) {
           />
         </g>
       </svg>
-      <span className="font-sans text-[15px] font-extrabold tracking-tight text-foreground sm:text-base">
+
+      <button
+        type="button"
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+        onClick={() => setClicked((v) => !v)}
+        aria-expanded={visible}
+        aria-describedby="app-description"
+        className="rounded font-sans text-[15px] font-extrabold tracking-tight text-foreground outline-none focus-visible:ring-2 focus-visible:ring-[hsl(201_85%_55%)] sm:text-base"
+      >
         Subscription Leak Finder
-      </span>
+      </button>
+
+      {visible && (
+        <div
+          id="app-description"
+          role="status"
+          className="absolute left-1/2 top-full z-30 mt-2 w-72 max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-2xl border border-border bg-surface p-3.5 text-left text-[12.5px] leading-relaxed text-muted shadow-lg"
+        >
+          {APP_DESCRIPTION}
+        </div>
+      )}
     </div>
   );
 }
