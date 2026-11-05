@@ -57,10 +57,17 @@ export function daysLeft(dateStr: string | null): number | null {
   return Math.ceil((end.getTime() - now.getTime()) / 86400000);
 }
 
+const MONTH_ABBR = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
 export function fmtDate(dateStr: string | null): string {
   if (!dateStr) return "";
   const d = new Date(dateStr + "T00:00:00");
-  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  if (isNaN(d.getTime())) return "";
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${day}-${MONTH_ABBR[d.getMonth()]}-${d.getFullYear()}`;
 }
 
 export function todayStr(): string {
