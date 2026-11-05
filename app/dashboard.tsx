@@ -200,7 +200,7 @@ export default function Dashboard({
       ? stats.soonestTrialDays < 0
         ? "may already be billing"
         : `${stats.soonestTrialDays}d to next cancel-by`
-      : ""
+      : "no cancel-by date set"
     : "none active";
 
   const statCells = [
