@@ -7,6 +7,7 @@ import { daysLeft, money, monthlyCost, yearlyCost } from "@/lib/money";
 import SubscriptionCard from "./subscription-card";
 import SubscriptionForm, { type ExtractedSubscription } from "./subscription-form";
 import Logo from "./logo";
+import UserMenu from "./user-menu";
 
 const HUES = [355, 27, 46, 152, 201, 248, 286];
 const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
@@ -240,15 +241,7 @@ export default function Dashboard({
       <header className="pb-7 pt-9">
         <div className="mb-2.5 flex items-center justify-between gap-3">
           <Logo />
-          <form action="/auth/signout" method="post">
-            <button
-              type="submit"
-              className="rounded-full border border-border px-3.5 py-1.5 text-xs font-semibold text-muted hover:text-foreground"
-              title={userEmail}
-            >
-              Sign out
-            </button>
-          </form>
+          <UserMenu userName={userName} userEmail={userEmail} />
         </div>
         <h1 className="text-[28px] font-extrabold tracking-tight sm:text-[36px]">
           Where&rsquo;s the money actually going?
