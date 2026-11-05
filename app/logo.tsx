@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const APP_DESCRIPTION =
-  "Subscription Leak Finder is a simple financial tool designed to identify hidden, forgotten, or under-utilized recurring charges that quietly drain a user's bank account. The application helps users visualize where small monthly costs compound into significant long-term financial drains.";
+  "Subscription Leak Finder is a simple financial tool designed to identify hidden, forgotten, or under-utilized recurring charges that quietly drain a user's bank account. It helps users visualize where small monthly costs compound into significant long-term financial drains.";
 
 export default function Logo({ className = "" }: { className?: string }) {
   const [hovering, setHovering] = useState(false);
