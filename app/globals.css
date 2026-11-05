@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f5ff;
+  --surface: #ffffff;
+  --surface-2: #fbfaff;
+  --foreground: #1a1625;
+  --muted: #6e6680;
+  --border: #e7e2f3;
+  --danger: #e0254d;
+  --danger-bg: #fde7ec;
+  --ok: #139a5d;
+  --ok-bg: #e3f7ec;
+  --warn: #c97a12;
+  --warn-bg: #fdf0db;
+  --chip-s: 82%;
+  --chip-l: 52%;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #171225;
+    --surface: #211a33;
+    --surface-2: #271f3b;
+    --foreground: #f1edfb;
+    --muted: #b3a7cc;
+    --border: #372c4e;
+    --danger: #ff6b86;
+    --danger-bg: #3a1a24;
+    --ok: #3ee096;
+    --ok-bg: #133527;
+    --warn: #ffb648;
+    --warn-bg: #3a2a10;
+    --chip-s: 78%;
+    --chip-l: 64%;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-ok: var(--ok);
+  --color-ok-bg: var(--ok-bg);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "tnum";
+}
+
+.rainbow-rule {
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    hsl(355 80% 55%),
+    hsl(27 80% 55%),
+    hsl(46 80% 50%),
+    hsl(152 70% 42%),
+    hsl(201 75% 55%),
+    hsl(248 75% 60%),
+    hsl(286 75% 60%)
+  );
+}
+
+.rainbow-dot {
+  background: conic-gradient(
+    from 90deg,
+    hsl(355 85% 55%),
+    hsl(27 85% 55%),
+    hsl(46 85% 55%),
+    hsl(152 85% 45%),
+    hsl(201 85% 55%),
+    hsl(248 85% 60%),
+    hsl(286 85% 60%),
+    hsl(355 85% 55%)
+  );
+}
+
+.chip-color {
+  background: hsl(var(--h) var(--chip-s) var(--chip-l));
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--foreground);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.input:focus-visible {
+  box-shadow: 0 0 0 2px hsl(201 85% 55%);
+}
